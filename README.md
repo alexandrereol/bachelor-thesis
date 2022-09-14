@@ -1,14 +1,12 @@
-# bachelor-thesis
+# Bachelor thesis at ETH Zürich
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is part of the final bachelor thesis for my degree in Computer Science at ETH Zürich.
 
-## Recommended IDE Setup
+## Where can I check the latest version?
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Compiled (still in development) version can be browsed on [graph.reol.ch](https://graph.reol.ch)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Soruce code can be found on [github.com/alexandrereol/bachelor-thesis](https://github.com/alexandrereol/bachelor-thesis)
 
 ## Project Setup
 
