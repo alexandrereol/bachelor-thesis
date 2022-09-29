@@ -6,7 +6,7 @@ This project is part of the final bachelor thesis for my degree in Computer Scie
 
 Compiled (still in development) version can be browsed on [graph.reol.ch](https://graph.reol.ch)
 
-Soruce code can be found on [github.com/alexandrereol/bachelor-thesis](https://github.com/alexandrereol/bachelor-thesis)
+Source code can be found on [github.com/alexandrereol/bachelor-thesis](https://github.com/alexandrereol/bachelor-thesis)
 
 ## Project Setup
 
