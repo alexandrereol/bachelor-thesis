@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf dist/; npm run build; mv dist/ docs/
+rm -rf docs/;npm run build; mv dist/ docs/; cp CNAME docs/CNAME;
