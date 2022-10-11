@@ -10,7 +10,7 @@ export default { components: { BackHomepageComp, FooterComp } }
       <h1>Impressum</h1>
       <img src="../assets/bilder/information-header.png" class="largeimg">
       <p class="aufgabenstellung">Diese Lernplattform basiert auf das Lehrmittel: <i>Band Algorithmen - 3 Entwurf und Analyse von Algorithmen</i>.</p>
-      <p class="aufgabenstellung "> Diese Platfrom ist als open-source Projekt von Alexandre Reol [<a href="mailto:alexandre@reol.ch">alexandre@reol.ch</a>] als Teil der Bachelorarbeit an der ETH Zürich entwickelt worden. Source code: <a href="https://github.com/alexandrereol/bsc-ts">github.com/alexandrereol/bsc-ts</a></p>
+      <p class="aufgabenstellung "> Diese Plattform ist als open-source Projekt von Alexandre Reol [<a href="mailto:alexandre@reol.ch">alexandre@reol.ch</a>] als Teil der Bachelorarbeit an der ETH Zürich entwickelt worden. Source code: <a href="https://github.com/alexandrereol/bachelor-thesis">github.com/alexandrereol/bachelor-thesis</a></p>
       <hr style= "max-width: 1100px; background-color: black; height: 1px; border: none;">
     </div>
     <div>

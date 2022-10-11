@@ -9,13 +9,13 @@
     </div>
     <h2>Wähle eine der drei Aufgaben um zu starten:</h2>
     <div class="taskrow">
-      <router-link to="about">
+      <router-link to="ex/descending">
         <button class="taskbtn">
           <h1>Abwärts entfernen</h1>
         </button>
       </router-link>
 
-      <router-link to="about">
+      <router-link to="ex/ascending">
         <button class="taskbtn">
           <h1>Aufwärts auswählen</h1> <br>
         </button>

@@ -4,17 +4,11 @@
       <h1>{{title}}</h1>
       <router-link to="/">
         <button class="back_to_homepage">
-          <img
-            src="../assets/icons/home.png"
-            style="height: 40px; width: 50px"
-          />
-          <br />
+          <img src="../assets/icons/home.png" style="height: 40px; width: 50px"/>
+          <br/>
           Startseite
         </button>
       </router-link>
-
-      <img :src="getSrc()" id="bild" style="height: 200px;"/>
-
       <p class="aufgabenstellung">{{taskdescription}} <span style="font-size: 25px; font-weight: bold"></span></p>
       <hr style="max-width: 1100px; background-color: black; height: 1px; border: none;">
   </div>
@@ -23,17 +17,7 @@
 
 <script>
 export default {
-  props: ['title', 'taskdescription', 'bildname'],
-  data () {
-    return {
-    }
-  },
-  methods: {
-    getSrc () {
-      return require(`../assets/bilder/${this.bildname}.png`)
-    }
-  }
-
+  props: ['title', 'taskdescription']
 }
 </script>
 
