@@ -61,7 +61,7 @@ function removeEdge () {
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Es scheint als hättest du keine Kante ausgewählt. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Du keine Kante ausgewählt. Überprüfe deine Auswahl.'
     return
   }
   for (const edgeId of selectedEdges.value) {
@@ -83,7 +83,7 @@ function removeEdge () {
       console.log('WRONG; Graph would be divided:' + visited)
       infoBox.value = true
       infoBoxCorrect.value = false
-      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante zwischen den beiden Knoten einen Teil des Graphen teilen würde.'
+      infoBoxMessage.value = 'Die augewählte Kante würde den Graphen in zwei teilen.'
       return
     }
 
@@ -94,7 +94,7 @@ function removeEdge () {
       console.log('WRONG; Edge is not the maximum edge in graph s.t. graph stays connected')
       infoBox.value = true
       infoBoxCorrect.value = false
-      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante nicht die größte Kante im Graphen ist.'
+      infoBoxMessage.value = 'Die augewählte Kante ist nicht die teuerste im Graphen.'
       return
     }
 

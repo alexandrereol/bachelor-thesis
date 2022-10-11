@@ -42,7 +42,7 @@ function allReachable (matrix: number[][], startNode: number) {
 // CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
 const ignoreList: number[] = []
 
-function getArrayMin (array: number[]) {
+function getArrayMin () {
   const difList = edgeWeights.filter(item => ignoreList.indexOf(item) < 0)
   return Math.min.apply(null, difList)
 }
@@ -54,13 +54,13 @@ function doesAddingEdgeFormCircle (matrix: number[][], source: number, target: n
   flag = false
 
   // make copy of adj matrix and add edge
-  var tempMatrix = JSON.parse(JSON.stringify(matrix))
+  const tempMatrix = JSON.parse(JSON.stringify(matrix))
   tempMatrix[source][target] = 1
   tempMatrix[target][source] = 1
 
   // before checking for cycles we remove the upper triangle of the matrix
-  for (var i = 0; i < matrix.length; i++) {
-    for (var j = i; j < matrix.length; j++) {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = i; j < matrix.length; j++) {
       tempMatrix[i][j] = 0
     }
   }
@@ -99,7 +99,7 @@ function colorEdge () {
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Es scheint als hättest du keine Kante ausgewählt. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Du keine Kante ausgewählt. Überprüfe deine Auswahl.'
     return
   }
   for (const edgeId of selectedEdges.value) {
@@ -116,7 +116,7 @@ function colorEdge () {
     }
 
     // CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
-    const minWeightGraph = getArrayMin(edgeWeights)
+    const minWeightGraph = getArrayMin()
     if (debugMode) {
       console.log('')
       console.log('[DEBUG] minimum edge in graph: ' + minWeightGraph)
@@ -126,7 +126,7 @@ function colorEdge () {
     if (edgeWeight !== minWeightGraph) {
       infoBox.value = true
       infoBoxCorrect.value = false
-      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante nicht die preiswertigste Kante im Graphen ist.'
+      infoBoxMessage.value = 'Die augewählte Kante ist nicht die preiswertigste blaue Kante im Graphen.'
       return
     }
 
@@ -140,7 +140,7 @@ function colorEdge () {
     if (cond2) {
       infoBox.value = true
       infoBoxCorrect.value = false
-      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante einen Kreis im minimalen Spannbaum bilden würde.'
+      infoBoxMessage.value = 'Die ausgewählte Kante würde im minimalen Spannbaum einen Kreis bilden.'
       return
     }
     // Color the edge selected
@@ -176,7 +176,7 @@ function colorEdge () {
         if (weight > 0) {
           const flag = flagToRemoveWeight[weight - 1]
           if (flag !== 1) {
-            const SCond1 = adjMatrix[i][j] === getArrayMin(edgeWeights)
+            const SCond1 = adjMatrix[i][j] === getArrayMin()
             const SCond2 = doesAddingEdgeFormCircle(mstAdjMatrix, i, j)
             if (SCond1 && SCond2) {
               flagToRemoveWeight[weight - 1] = 2

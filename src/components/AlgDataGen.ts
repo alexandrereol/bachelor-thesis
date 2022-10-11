@@ -1,4 +1,4 @@
-import { Nodes, Edges, Layouts, defineConfigs } from 'v-network-graph'
+import { Nodes, Layouts } from 'v-network-graph'
 import * as vNG from 'v-network-graph'
 import { reactive } from 'vue'
 
