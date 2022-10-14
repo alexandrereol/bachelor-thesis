@@ -11,7 +11,7 @@
     <div class="taskrow">
       <router-link to="ex/descending">
         <button class="taskbtn">
-          <h1>Abwärts entfernen</h1>
+          <h1>Abwärts entfernen (BETA)</h1>
         </button>
       </router-link>
 
@@ -23,7 +23,7 @@
 
       <router-link to="about">
         <button class="taskbtn">
-          <h1>Farbige Partitionen</h1> <br>
+          <h1>Farbige Partitionen (TODO)</h1> <br>
         </button>
       </router-link>
 
