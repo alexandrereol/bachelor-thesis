@@ -24,17 +24,19 @@ function getArrayMax (array: number[]) {
 
 // TODO: check adjacency matrix if correct
 const adjMatrix: number[][] = [
-  [0, edgeWeights[0], 0, edgeWeights[5], 0, 0, 0, 0],
-  [edgeWeights[0], 0, edgeWeights[1], edgeWeights[6], edgeWeights[7], 0, 0, 0],
-  [0, edgeWeights[1], 0, 0, edgeWeights[8], 0, 0, 0],
-  [edgeWeights[5], edgeWeights[6], 0, 0, edgeWeights[2], edgeWeights[9], edgeWeights[10], 0],
-  [0, edgeWeights[7], edgeWeights[8], edgeWeights[2], 0, 0, edgeWeights[11], edgeWeights[12]],
-  [0, 0, 0, edgeWeights[9], 0, 0, edgeWeights[3], 0],
-  [0, 0, 0, edgeWeights[10], edgeWeights[11], edgeWeights[3], 0, edgeWeights[4]],
-  [0, 0, 0, 0, edgeWeights[12], 0, edgeWeights[4], 0]
+  [0, edgeWeights[0], 0, edgeWeights[5], 0, 0, 0, 0, edgeWeights[14], 0],
+  [edgeWeights[0], 0, edgeWeights[1], edgeWeights[6], edgeWeights[7], 0, 0, 0, 0, 0],
+  [0, edgeWeights[1], 0, 0, edgeWeights[8], 0, 0, 0, 0, edgeWeights[16]],
+  [edgeWeights[5], edgeWeights[6], 0, 0, edgeWeights[2], edgeWeights[9], edgeWeights[10], 0, 0, 0],
+  [0, edgeWeights[7], edgeWeights[8], edgeWeights[2], 0, 0, edgeWeights[11], edgeWeights[12], 0, 0],
+  [0, 0, 0, edgeWeights[9], 0, 0, edgeWeights[3], 0, edgeWeights[13], 0],
+  [0, 0, 0, edgeWeights[10], edgeWeights[11], edgeWeights[3], 0, edgeWeights[4], 0, 0],
+  [0, 0, 0, 0, edgeWeights[12], 0, edgeWeights[4], 0, 0, edgeWeights[15]],
+  [edgeWeights[14], 0, 0, 0, 0, edgeWeights[13], 0, 0, 0, 0],
+  [0, 0, edgeWeights[16], 0, 0, 0, 0, edgeWeights[15], 0, 0]
 ]
 
-let visited = Array.from({ length: 8 }, () => false)
+let visited = Array.from({ length: 10 }, () => false)
 
 function allReachable (matrix: number[][], startNode: number) {
   for (let i = 0; i < matrix.length; i++) {
@@ -50,7 +52,7 @@ function doesEdgeSplitGraph (source: number, target: number) {
   if (adjMatrix[source][target] < 0) {
     return false
   }
-  visited = Array.from({ length: 8 }, () => false)
+  visited = Array.from({ length: 10 }, () => false)
   var tempMatrix = JSON.parse(JSON.stringify(adjMatrix))
   tempMatrix[source][target] = 0
   tempMatrix[target][source] = 0
@@ -111,11 +113,11 @@ function removeEdge () {
       delete edges[edgeId]
 
       // Is exercise finished?
-      if (edgeWeights.length === 7) {
+      if (edgeWeights.length === 9) {
         console.log('CORRECT; the m.s.t. has the following edges' + edgeWeights)
         infoBox.value = true
         infoBoxCorrect.value = true
-        infoBoxMessage.value = 'Alles korrekt! Du hast alle Kanten des minimalen Spannbaumes gefunden!'
+        infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
       }
     }
   }

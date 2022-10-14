@@ -10,21 +10,23 @@ const nodes: Nodes = {
   node4: { name: 'Node 4' },
   node5: { name: 'Node 5' },
   node6: { name: 'Node 6' },
-  node7: { name: 'Node 7' }
+  node7: { name: 'Node 7' },
+  node8: { name: 'Node 8' },
+  node9: { name: 'Node 9' }
 }
 
-let edgesWeight = Array.from({ length: 13 }, () => Math.floor(Math.random() * 20) + 1)
+let edgesWeight = Array.from({ length: 17 }, () => Math.floor(Math.random() * 21))
 
 const debug = false
 if (debug) {
-  edgesWeight = [20, 19, 5, 14, 5, 5, 16, 6, 14, 13, 10, 20, 19]
+  edgesWeight = [20, 19, 5, 14, 5, 5, 16, 6, 14, 13, 10, 20, 19, 1, 1, 1, 1]
 }
 
 interface Edge extends vNG.Edge {
   color: string
 }
 
-const customColor = Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false))
+const customColor = Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => false))
 
 function genColor (i: number, j: number): string {
   if (customColor[i][j]) return 'red'
@@ -44,7 +46,11 @@ const edges: Record<string, Edge> = {
   edge10: { source: 'node3', target: 'node5', label: edgesWeight[9].toString(), color: genColor(3, 5) },
   edge11: { source: 'node3', target: 'node6', label: edgesWeight[10].toString(), color: genColor(3, 6) },
   edge12: { source: 'node4', target: 'node6', label: edgesWeight[11].toString(), color: genColor(4, 6) },
-  edge13: { source: 'node4', target: 'node7', label: edgesWeight[12].toString(), color: genColor(4, 7) }
+  edge13: { source: 'node4', target: 'node7', label: edgesWeight[12].toString(), color: genColor(4, 7) },
+  edge14: { source: 'node5', target: 'node8', label: edgesWeight[13].toString(), color: genColor(5, 8) },
+  edge15: { source: 'node0', target: 'node8', label: edgesWeight[14].toString(), color: genColor(0, 8) },
+  edge16: { source: 'node7', target: 'node9', label: edgesWeight[15].toString(), color: genColor(7, 9) },
+  edge17: { source: 'node2', target: 'node9', label: edgesWeight[16].toString(), color: genColor(2, 9) }
 }
 
 const xScale = 1
@@ -59,7 +65,9 @@ const layouts: Layouts = {
     node4: { x: xScale * 200, y: yScale * 100 },
     node5: { x: xScale * -400, y: yScale * 0 },
     node6: { x: xScale * 0, y: yScale * 0 },
-    node7: { x: xScale * 400, y: yScale * 0 }
+    node7: { x: xScale * 400, y: yScale * 0 },
+    node8: { x: xScale * -600, y: yScale * 100 },
+    node9: { x: xScale * 600, y: yScale * 100 }
   }
 }
 
