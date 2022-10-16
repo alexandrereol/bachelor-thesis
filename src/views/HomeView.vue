@@ -21,9 +21,9 @@
         </button>
       </router-link>
 
-      <router-link to="about">
+      <router-link to="ex/partition">
         <button class="taskbtn">
-          <h1>Farbige Partitionen (TODO)</h1> <br>
+          <h1>Farbige Partitionen</h1> <br>
         </button>
       </router-link>
 

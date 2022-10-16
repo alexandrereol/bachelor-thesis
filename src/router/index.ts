@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ExerciseDescending from '../views/ExerciseDescending.vue'
 import ExerciseAscending from '../views/ExerciseAscending.vue'
+import ExercisePartition from '../views/ExercisePartition.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/ex/ascending',
     name: 'ExerciseAscending',
     component: ExerciseAscending
+  },
+  {
+    path: '/ex/partition',
+    name: 'ExercisePartition',
+    component: ExercisePartition
   }
 ]
 
