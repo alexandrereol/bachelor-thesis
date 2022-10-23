@@ -1,21 +1,8 @@
-import { Nodes, Edges, Layouts, defineConfigs } from 'v-network-graph'
+import { Nodes, Layouts } from 'v-network-graph'
 import * as vNG from 'v-network-graph'
 import { reactive } from 'vue'
 
-const nodes: Nodes = {
-  node0: { name: 'Node 0' },
-  node1: { name: 'Node 1' },
-  node2: { name: 'Node 2' },
-  node3: { name: 'Node 3' },
-  node4: { name: 'Node 4' },
-  node5: { name: 'Node 5' },
-  node6: { name: 'Node 6' },
-  node7: { name: 'Node 7' },
-  node8: { name: 'Node 8' },
-  node9: { name: 'Node 9' }
-}
-
-let edgesWeight = Array.from({ length: 17 }, () => Math.floor(Math.random() * 21))
+let edgesWeight = Array.from({ length: 17 }, () => Math.floor(Math.random() * 21) + 1) // from 0 to 21
 
 const debug = false
 if (debug) {
@@ -31,6 +18,19 @@ const customColor = Array.from({ length: 10 }, () => Array.from({ length: 10 }, 
 function genColor (i: number, j: number): string {
   if (customColor[i][j]) return 'red'
   return 'blue'
+}
+
+const nodes: Nodes = {
+  node0: { name: 'Node 0' },
+  node1: { name: 'Node 1' },
+  node2: { name: 'Node 2' },
+  node3: { name: 'Node 3' },
+  node4: { name: 'Node 4' },
+  node5: { name: 'Node 5' },
+  node6: { name: 'Node 6' },
+  node7: { name: 'Node 7' },
+  node8: { name: 'Node 8' },
+  node9: { name: 'Node 9' }
 }
 
 const edges: Record<string, Edge> = {

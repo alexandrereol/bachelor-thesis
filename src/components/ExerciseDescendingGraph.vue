@@ -36,6 +36,34 @@ const adjMatrix: number[][] = [
   [0, 0, edgeWeights[16], 0, 0, 0, 0, edgeWeights[15], 0, 0]
 ]
 
+const revAdjMatrix: string[][] = [
+  ['', 'edge1', '', 'edge6', '', '', '', '', 'edge15', ''],
+  ['edge1', '', 'edge2', 'edge7', 'edge8', '', '', '', '', ''],
+  ['', 'edge2', '', '', 'edge9', '', '', '', '', 'edge17'],
+  ['edge6', 'edge7', '', '', 'edge3', 'edge1', 'edge11', '', '', ''],
+  ['', 'edge8', 'edge9', 'edge3', '', '', 'edge12', 'edge13', '', ''],
+  ['', '', '', 'edge1', '', '', 'edge4', '', 'edge14', ''],
+  ['', '', '', 'edge11', 'edge12', 'edge4', '', 'edge5', '', ''],
+  ['', '', '', '', 'edge13', '', 'edge5', '', '', 'edge16'],
+  ['edge15', '', '', '', '', 'edge14', '', '', '', ''],
+  ['', '', 'edge17', '', '', '', '', 'edge16', '', '']
+]
+
+for (var i = 0; i < adjMatrix.length; i++) {
+  for (var j = i; j < adjMatrix.length; j++) {
+    if (adjMatrix[i][j] === 21) {
+      const index = edgeWeights.indexOf(21)
+      edgeWeights.splice(index, 1)
+      //
+      adjMatrix[i][j] = 0
+      adjMatrix[j][i] = 0
+      //
+      const toDelete = revAdjMatrix[i][j]
+      delete edges[toDelete]
+    }
+  }
+}
+
 let visited = Array.from({ length: 10 }, () => false)
 
 function allReachable (matrix: number[][], startNode: number) {
