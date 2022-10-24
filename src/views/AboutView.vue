@@ -10,6 +10,11 @@ export default { components: { BackHomepageComp } }
       <img src="../assets/bilder/information-header.png" class="largeimg">
       <p class="aufgabenstellung">Diese Lernplattform basiert auf das Lehrmittel: <i>Band Algorithmen - 3 Entwurf und Analyse von Algorithmen</i>.</p>
       <p class="aufgabenstellung "> Diese Plattform ist als open-source Projekt von Alexandre Reol [<a href="mailto:alexandre@reol.ch">alexandre@reol.ch</a>] als Teil der Bachelorarbeit an der ETH Zürich entwickelt worden. Source code: <a href="https://github.com/alexandrereol/bachelor-thesis">github.com/alexandrereol/bachelor-thesis</a></p>
+      <p class="aufgabenstellung ">TODO: - check zusammenhängend after '21'-removal</p>
+      <p class="aufgabenstellung ">TODO: - fix 1st algo bug</p>
+      <p class="aufgabenstellung ">TODO: - on reload --> reset user state</p>
+      <p class="aufgabenstellung ">TODO: - add new exercise button</p>
+      <p class="aufgabenstellung ">TODO: - link paper/overleaf</p>
     </div>
     <div>
       Home icon by
