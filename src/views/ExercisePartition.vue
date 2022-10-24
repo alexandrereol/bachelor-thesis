@@ -53,7 +53,6 @@
       />
     </div>
     -->
-    <FooterComp />
   </div>
 </template>
 
@@ -63,11 +62,10 @@ import VerifierComp from '@/components/VerifierComp.vue'
 import NextTaskComp from '@/components/NextTaskComp.vue'
 import NewTaskComp from '@/components/NewTaskComp.vue'
 import HeaderComp from '@/components/HeaderComp.vue'
-import FooterComp from '@/components/FooterComp.vue'
 import TutorialComp from '@/components/TutorialComp.vue'
 
 export default {
-  components: { ExercisePartitionGraph, VerifierComp, HeaderComp, FooterComp }, // NewTaskComp, NextTaskComp, TutorialComp
+  components: { ExercisePartitionGraph, VerifierComp, HeaderComp },
   data () {
     return {
       tutorialActive: false,

@@ -10,7 +10,6 @@
         </button>
       </router-link>
       <p class="aufgabenstellung">{{taskdescription}} <span style="font-size: 25px; font-weight: bold"></span></p>
-      <hr style="max-width: 1100px; background-color: black; height: 1px; border: none;">
   </div>
   </div>
 </template>

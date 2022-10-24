@@ -2,7 +2,7 @@
   <div>
     <HeaderComp
       :title="'Minimaler Spannbaum berechnen 2'"
-      :taskdescription="'Deine Aufgabe ist es die preiswertigste Kante auszuwählen und sie dem minimalen Spannbaum hinzuzufügen. Dies kannst du machen, indem du den Knopf unter der Graphen klickst. Es kann manchmal sein, dass mehrere Kanten das (gleiche) preiswertigste Gewicht haben, dann kannst du irgendeine Kante wählen! Achte ebenfalls dass in deinem minimalen Spannbaum keine Kreise gebildet werden.'"
+      :taskdescription="'Deine Aufgabe ist es die preiswertigste Kante auszuwählen und sie dem minimalen Spannbaum hinzuzufügen. Dies kann mit dem Knopf unter der Graphen gemacht werden. Achte dass keine Kreise entstehen!'"
     />
     <ExerciseAscendingGraph />
     <VerifierComp
@@ -67,11 +67,10 @@ import VerifierComp from '@/components/VerifierComp.vue'
 import NextTaskComp from '@/components/NextTaskComp.vue'
 import NewTaskComp from '@/components/NewTaskComp.vue'
 import HeaderComp from '@/components/HeaderComp.vue'
-import FooterComp from '@/components/FooterComp.vue'
 import TutorialComp from '@/components/TutorialComp.vue'
 
 export default {
-  components: { ExerciseAscendingGraph, VerifierComp, HeaderComp, FooterComp }, // NextTaskComp, NewTaskComp, TutorialComp
+  components: { ExerciseAscendingGraph, VerifierComp, HeaderComp },
   data () {
     return {
       tutorialActive: false,

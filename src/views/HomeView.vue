@@ -1,12 +1,10 @@
 <template>
   <div>
     <div class="header">
-      <h1>Willkommen in der Lernumgebung zu minimalen Spannbäumen in der Graphentheorie!</h1>
-      <p class="aufgabenstellung">Auf dieser Platform wirst du drei verschiedene "greedy" (gierige) Algorithmen lernen können, die einen minimalen Spannbaum berechnen. Du wirst die drei Algorithmen in mehreren Aufgaben üben können.</p>
-      <hr style= "max-width: 1100px; background-color: black; height: 1px; border: none;">
+      <h1>Lernumgebung zu minimalen Spannbäumen in der Graphentheorie</h1>
+      <p class="aufgabenstellung">Auf dieser Platform wirst du drei verschiedene Algorithmen lernen können die minimale Spannbäum berechnen.</p>
       <HomeGraph class="homegraph"/>
-      <hr style= "max-width: 1100px; background-color: black; height: 1px; border: none;">
-    </div>
+      </div>
     <h2>Wähle eine der drei Aufgaben um zu starten:</h2>
     <div class="taskrow">
       <router-link to="ex/descending">
@@ -33,17 +31,15 @@
         Information
       </button>
     </router-link>
-    <FooterComp />
   </div>
 </template>
 
 <script>
-import FooterComp from '@/components/FooterComp.vue'
 import HomeGraph from '@/components/HomeGraphComp.vue'
 
 export default {
   name: 'HomeView',
-  components: { FooterComp, HomeGraph }
+  components: { HomeGraph }
 }
 </script>
 

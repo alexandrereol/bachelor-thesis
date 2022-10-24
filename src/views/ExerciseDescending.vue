@@ -2,7 +2,7 @@
   <div>
     <HeaderComp
       :title="'Minimaler Spannbaum berechnen 1 (BETA)'"
-      :taskdescription="'Deine Aufgabe ist es die teuerste Kanten aus dem Graphen zu entfernen. Wähle jeweils eine Kante aus und entferne sie aus dem Graphen mit dem Knopf unter dem Graphen. Achte darauf, dass der Graph immer noch verbunden ist und im minimalen Spannbaum keine Kreise bleiben.'"
+      :taskdescription="'Deine Aufgabe ist es die teuerste Kanten aus dem Graphen zu entfernen. Dies kann mit dem Knopf unter der Graphen gemacht werden. Achte dass der Graph verbunden bleibt und keine Kreise enthält.'"
     />
     <ExerciseDescendingGraph />
     <VerifierComp
@@ -57,7 +57,6 @@
       />
     </div>
     -->
-    <FooterComp />
   </div>
 </template>
 
@@ -67,11 +66,10 @@ import VerifierComp from '@/components/VerifierComp.vue'
 import NextTaskComp from '@/components/NextTaskComp.vue'
 import NewTaskComp from '@/components/NewTaskComp.vue'
 import HeaderComp from '@/components/HeaderComp.vue'
-import FooterComp from '@/components/FooterComp.vue'
 import TutorialComp from '@/components/TutorialComp.vue'
 
 export default {
-  components: { ExerciseDescendingGraph, VerifierComp, HeaderComp, FooterComp }, // NextTaskComp, NewTaskComp, TutorialComp
+  components: { ExerciseDescendingGraph, VerifierComp, HeaderComp },
   data () {
     return {
       tutorialActive: false,

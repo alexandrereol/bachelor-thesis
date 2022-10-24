@@ -261,6 +261,6 @@ function colorEdge () {
 <style scoped>
 .graph {
   width: 100%;
-  height: 700px;
+  height: 450px;
 }
 </style>
