@@ -17,11 +17,11 @@ npm install
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
+./run.sh
 ```
 
 ### Compile and Minify for Production
 
 ```sh
-npm run build
+./deploy.sh
 ```
