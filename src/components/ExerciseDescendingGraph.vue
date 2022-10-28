@@ -49,6 +49,16 @@ const revAdjMatrix: string[][] = [
   ['', '', 'edge17', '', '', '', '', 'edge16', '', '']
 ]
 
+function allReachable (matrix: number[][], startNode: number) {
+  for (let i = 0; i < matrix.length; i++) {
+    if (matrix[startNode][i] > 0 && visited[i] === false) {
+      visited[i] = true
+      allReachable(matrix, i)
+    }
+  }
+  return !visited.includes(false)
+}
+
 for (var i = 0; i < adjMatrix.length; i++) {
   for (var j = i; j < adjMatrix.length; j++) {
     if (adjMatrix[i][j] === 21) {
@@ -63,18 +73,11 @@ for (var i = 0; i < adjMatrix.length; i++) {
     }
   }
 }
+if (!allReachable) {
+  location.reload()
+}
 
 let visited = Array.from({ length: 10 }, () => false)
-
-function allReachable (matrix: number[][], startNode: number) {
-  for (let i = 0; i < matrix.length; i++) {
-    if (matrix[startNode][i] > 0 && visited[i] === false) {
-      visited[i] = true
-      allReachable(matrix, i)
-    }
-  }
-  return !visited.includes(false)
-}
 
 function doesEdgeSplitGraph (source: number, target: number) {
   if (adjMatrix[source][target] < 0) {

@@ -46,6 +46,18 @@ const revAdjMatrix: string[][] = [
   ['', '', 'edge17', '', '', '', '', 'edge16', '', '']
 ]
 
+const visited = Array.from({ length: 10 }, () => false)
+
+function allReachable (matrix: number[][], startNode: number) {
+  for (let i = 0; i < matrix.length; i++) {
+    if (matrix[startNode][i] > 0 && visited[i] === false) {
+      visited[i] = true
+      allReachable(matrix, i)
+    }
+  }
+  return !visited.includes(false)
+}
+
 for (var i = 0; i < adjMatrix.length; i++) {
   for (var j = i; j < adjMatrix.length; j++) {
     if (adjMatrix[i][j] === 21) {
@@ -59,6 +71,9 @@ for (var i = 0; i < adjMatrix.length; i++) {
       delete edges[toDelete]
     }
   }
+}
+if (!allReachable) {
+  location.reload()
 }
 
 // CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
