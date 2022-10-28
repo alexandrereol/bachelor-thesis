@@ -5,6 +5,7 @@
       :taskdescription="'Deine Aufgabe ist es die teuerste Kanten aus dem Graphen zu entfernen. Dies kann mit dem Knopf unter der Graphen gemacht werden. Achte dass der Graph verbunden bleibt und keine Kreise enthält.'"
     />
     <ExerciseDescendingGraph />
+    <RemoveEdgeComp />
     <VerifierComp
       v-if="this.submitted"
       :correctSolution="this.result"
@@ -67,9 +68,10 @@ import NextTaskComp from '@/components/NextTaskComp.vue'
 import NewTaskComp from '@/components/NewTaskComp.vue'
 import HeaderComp from '@/components/HeaderComp.vue'
 import TutorialComp from '@/components/TutorialComp.vue'
+import RemoveEdgeComp from '@/components/RemoveEdgeComp.vue'
 
 export default {
-  components: { ExerciseDescendingGraph, VerifierComp, HeaderComp },
+  components: { ExerciseDescendingGraph, VerifierComp, HeaderComp, RemoveEdgeComp },
   data () {
     return {
       tutorialActive: false,

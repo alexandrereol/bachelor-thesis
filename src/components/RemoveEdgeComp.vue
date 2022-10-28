@@ -1,5 +1,5 @@
 <template>
-  <button @click="next_task()" class="next_task">
+  <button @click="reloadPage()" class="next_task">
     <img src="../assets/icons/restart.png" class="icon" />
     <br />
     Neue Aufgabe
@@ -11,9 +11,6 @@ export default {
   methods: {
     reloadPage () {
       location.reload()
-    },
-    next_task () {
-      this.$emit('next_task')
     }
   }
 }

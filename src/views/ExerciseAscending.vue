@@ -5,6 +5,7 @@
       :taskdescription="'Deine Aufgabe ist es die preiswertigste Kante auszuwählen und sie dem minimalen Spannbaum hinzuzufügen. Dies kann mit dem Knopf unter der Graphen gemacht werden. Achte dass keine Kreise entstehen!'"
     />
     <ExerciseAscendingGraph />
+    <RemoveEdgeComp />
     <VerifierComp
       v-if="this.submitted"
       :correctSolution="this.result"
@@ -68,9 +69,10 @@ import NextTaskComp from '@/components/NextTaskComp.vue'
 import NewTaskComp from '@/components/NewTaskComp.vue'
 import HeaderComp from '@/components/HeaderComp.vue'
 import TutorialComp from '@/components/TutorialComp.vue'
+import RemoveEdgeComp from '@/components/RemoveEdgeComp.vue'
 
 export default {
-  components: { ExerciseAscendingGraph, VerifierComp, HeaderComp },
+  components: { ExerciseAscendingGraph, VerifierComp, HeaderComp, RemoveEdgeComp },
   data () {
     return {
       tutorialActive: false,

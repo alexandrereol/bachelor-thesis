@@ -5,6 +5,7 @@
       :taskdescription="'Deine Aufgabe ist es die preiswertigste Kante zwischen der roten Partition und der blauen Partition zu markieren. Wähle jeweils eine Kante aus und färbe sie blau indem du den Knopf unter dem Graph klickst.'"
     />
     <ExercisePartitionGraph />
+    <RemoveEdgeComp />
     <VerifierComp
       v-if="this.submitted"
       :correctSolution="this.result"
@@ -63,9 +64,10 @@ import NextTaskComp from '@/components/NextTaskComp.vue'
 import NewTaskComp from '@/components/NewTaskComp.vue'
 import HeaderComp from '@/components/HeaderComp.vue'
 import TutorialComp from '@/components/TutorialComp.vue'
+import RemoveEdgeComp from '@/components/RemoveEdgeComp.vue'
 
 export default {
-  components: { ExercisePartitionGraph, VerifierComp, HeaderComp },
+  components: { ExercisePartitionGraph, VerifierComp, HeaderComp, RemoveEdgeComp },
   data () {
     return {
       tutorialActive: false,
