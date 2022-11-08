@@ -2,7 +2,7 @@
   <div>
     <HeaderComp
       :title="'Minimaler Spannbaum berechnen 2'"
-      :taskdescription="'Deine Aufgabe ist es die preiswertigste Kante auszuwählen und sie dem minimalen Spannbaum hinzuzufügen. Dies kann mit dem Knopf unter der Graphen gemacht werden. Achte dass keine Kreise entstehen!'"
+      :taskdescription="'Deine Aufgabe ist es, die preiswertigste Kante auszuwählen und sie dem minimalen Spannbaum hinzuzufügen. Dies kann mit dem Knopf unter dem Graphen gemacht werden. Achte, dass keine Kreise entstehen!'"
     />
     <ExerciseAscendingGraph />
     <RemoveEdgeComp />

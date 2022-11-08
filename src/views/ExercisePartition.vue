@@ -2,7 +2,7 @@
   <div>
     <HeaderComp
       :title="'Minimaler Spannbaum berechnen 3'"
-      :taskdescription="'Deine Aufgabe ist es die preiswertigste Kante zwischen der roten Partition und der blauen Partition zu markieren. Wähle jeweils eine Kante aus und färbe sie blau indem du den Knopf unter dem Graph klickst.'"
+      :taskdescription="'Deine Aufgabe ist es, die preiswertigste Kante zwischen der roten Partition und der blauen Partition zu markieren. Wähle jeweils eine Kante aus und färbe sie blau indem du den Knopf unter dem Graph klickst.'"
     />
     <ExercisePartitionGraph />
     <RemoveEdgeComp />
