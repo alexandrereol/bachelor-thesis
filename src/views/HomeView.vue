@@ -80,12 +80,14 @@ span {
   background-color: rgb(42, 159, 183);
   cursor: pointer;
 }
+
 .info:hover {
   background-color: rgb(83, 81, 81);
   color: white;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
 .taskbtn {
   text-align: center;
   text-decoration: none;
@@ -99,13 +101,15 @@ span {
   height: 250px;
   cursor: pointer;
 }
+
 .taskbtn:hover {
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 90%);
 }
+
 .taskrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 </style>

@@ -44,6 +44,8 @@ const revAdjMatrix: string[][] = [
   ['', '', 'edge17', '', '', '', '', 'edge16', '', '']
 ]
 
+let visited = Array.from({ length: 10 }, () => false)
+
 function allReachable (matrix: number[][], startNode: number) {
   for (let i = 0; i < matrix.length; i++) {
     if (matrix[startNode][i] > 0 && visited[i] === false) {
@@ -56,8 +58,8 @@ function allReachable (matrix: number[][], startNode: number) {
 
 for (var i = 0; i < adjMatrix.length; i++) {
   for (var j = i; j < adjMatrix.length; j++) {
-    if (adjMatrix[i][j] === 21) {
-      const index = edgeWeights.indexOf(21)
+    if (adjMatrix[i][j] >= 21) {
+      const index = edgeWeights.indexOf(adjMatrix[i][j])
       edgeWeights.splice(index, 1)
       //
       adjMatrix[i][j] = 0
@@ -68,7 +70,9 @@ for (var i = 0; i < adjMatrix.length; i++) {
     }
   }
 }
-if (!allReachable) {
+
+if (!allReachable(adjMatrix, 0)) {
+  console.log('not all reachable -> reloading')
   location.reload()
 }
 
@@ -110,7 +114,6 @@ function doesAddingEdgeFormCircle (matrix: number[][], source: number, target: n
   return flag
 }
 
-let visited = Array.from({ length: 10 }, () => false)
 let flag = false
 
 function dfs (matrix: number[][], source: number) {

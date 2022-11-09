@@ -60,8 +60,8 @@ function allReachable (matrix: number[][], startNode: number) {
 
 for (var i = 0; i < adjMatrix.length; i++) {
   for (var j = i; j < adjMatrix.length; j++) {
-    if (adjMatrix[i][j] === 21) {
-      const index = edgeWeights.indexOf(21)
+    if (adjMatrix[i][j] >= 21) {
+      const index = edgeWeights.indexOf(adjMatrix[i][j])
       edgeWeights.splice(index, 1)
       //
       adjMatrix[i][j] = 0
@@ -72,7 +72,9 @@ for (var i = 0; i < adjMatrix.length; i++) {
     }
   }
 }
-if (!allReachable) {
+
+if (!allReachable(adjMatrix, 0)) {
+  console.log('not all reachable -> reloading')
   location.reload()
 }
 
