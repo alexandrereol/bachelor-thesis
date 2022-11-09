@@ -21,13 +21,13 @@
             <img
               class="corr_img"
               v-if="correctSolution"
-              :src="require('@/assets/icons/Task-completed-correctly-v3.png')"
+              :src="require('@/assets/icons/beaver-correct.png')"
               draggable="false"
             />
             <img
               class="corr_img"
               v-else
-              :src="require('@/assets/icons/Task-completed-incorrectly2.png')"
+              :src="require('@/assets/icons/beaver-incorrect.png')"
               draggable="false"
             />
           </div>

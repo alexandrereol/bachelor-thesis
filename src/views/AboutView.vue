@@ -8,23 +8,28 @@ export default { components: { BackHomepageComp } }
     <div class="header">
       <h1>Impressum</h1>
       <img src="../assets/bilder/information-header.png" class="largeimg">
-      <p class="aufgabenstellung">Diese Lernplattform basiert auf das Lehrmittel: <i>Band Algorithmen - 3 Entwurf und Analyse von Algorithmen</i>.</p>
-      <p class="aufgabenstellung ">Diese Plattform ist als open-source Projekt von Alexandre Reol [<a href="mailto:alexandre@reol.ch">alexandre@reol.ch</a>] als Teil der Bachelorarbeit an der ETH Zürich entwickelt worden. Source code: <a href="https://github.com/alexandrereol/bachelor-thesis">github.com/alexandrereol/bachelor-thesis</a></p>
-      <p class="aufgabenstellung ">Dokumentation kann auf <a href="https://github.com/alexandrereol/bachelor-thesis/tree/main/thesis">github.com/alexandrereol/bachelor-thesis/tree/main/thesis</a> gelesen werden.</p>
-      <p class="aufgabenstellung ">TODO: - check zusammenhängend after '21'-removal</p>
+      <p class="aufgabenstellung">Diese Lernplattform basiert auf das Lehrmittel: <i>Band Algorithmen - 3 Entwurf und
+          Analyse von Algorithmen</i>.</p>
+      <p class="aufgabenstellung ">Diese Plattform ist als open-source Projekt von Alexandre Reol [<a
+          href="mailto:alexandre@reol.ch">alexandre@reol.ch</a>] als Teil der Bachelorarbeit an der ETH Zürich
+        entwickelt worden. Source code: <a
+          href="https://github.com/alexandrereol/bachelor-thesis">github.com/alexandrereol/bachelor-thesis</a></p>
+      <p class="aufgabenstellung ">Dokumentation kann auf <a
+          href="https://github.com/alexandrereol/bachelor-thesis/tree/main/thesis">github.com/alexandrereol/bachelor-thesis/tree/main/thesis</a>
+        gelesen werden.</p>
       <p class="aufgabenstellung ">TODO: - fix 1st algo bug</p>
     </div>
     <div>
       Home icon by
       <a href="https://www.freepik.com" title="Freepik">Freepik</a>
       and
-      <a href="https://www.flaticon.com/authors/vignesh-oviyan" title="Vignesh Oviyan" >Vignesh Oviyan</a>
+      <a href="https://www.flaticon.com/authors/vignesh-oviyan" title="Vignesh Oviyan">Vignesh Oviyan</a>
       , respectively from
       <a href="https://www.flaticon.com/">www.flaticon.com</a>
     </div>
     <div>
       Help and check icon by
-      <a href="https://freeicons.io/profile/726" >Free Preloaders</a>
+      <a href="https://freeicons.io/profile/726">Free Preloaders</a>
       and
       <a href="https://freeicons.io/profile/714">Raj Dev</a>
       respectively on
@@ -43,12 +48,12 @@ export default { components: { BackHomepageComp } }
     <div id="links">
       <div>
         <a href="https://ethz.ch/">
-          <img src="../assets/logos/ethz-logo.svg" draggable="false" style="height: 40px; left: 50%;">
+          <img src="../assets/logos/ethz.svg" draggable="false" style="height: 40px; left: 50%;">
         </a>
       </div>
       <div>
         <a href="https://abz.inf.ethz.ch/">
-          <img src="../assets/logos/logo_abz_weiss.png" draggable="false" style="height: 60px;">
+          <img src="../assets/logos/abz.png" draggable="false" style="height: 60px;">
         </a>
       </div>
     </div>
@@ -68,12 +73,14 @@ export default { components: { BackHomepageComp } }
   padding: 10px;
   border: rgb(83, 81, 81);
 }
+
 .back_to_homepage:hover {
   background-color: rgb(83, 81, 81);
   color: white;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
 #links {
   display: flex;
   align-items: center;
