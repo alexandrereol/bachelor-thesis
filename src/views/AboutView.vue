@@ -17,7 +17,6 @@ export default { components: { BackHomepageComp } }
       <p class="aufgabenstellung ">Dokumentation kann auf <a
           href="https://github.com/alexandrereol/bachelor-thesis/tree/main/thesis">github.com/alexandrereol/bachelor-thesis/tree/main/thesis</a>
         gelesen werden.</p>
-      <p class="aufgabenstellung ">TODO: - fix 1st algo bug</p>
     </div>
     <div>
       Home icon by

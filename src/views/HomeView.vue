@@ -10,7 +10,7 @@
     <div class="taskrow">
       <router-link to="ex/descending">
         <button class="taskbtn">
-          <h1>Abwärts entfernen (BETA)</h1>
+          <h1>Abwärts entfernen</h1>
         </button>
       </router-link>
 

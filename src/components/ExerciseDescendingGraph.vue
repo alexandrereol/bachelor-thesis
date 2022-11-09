@@ -153,6 +153,24 @@ function removeEdge () {
       }
     }
   }
+
+  const possiblyWrong = ignoreList[ignoreList.length - 1]
+  const temp = edgeWeights.filter(function (value) { return value === possiblyWrong }).length
+  if (temp > 1) {
+    let tempResult = true
+    for (let i = 0; i < adjMatrix.length; i++) {
+      for (let j = 0; j < adjMatrix.length; j++) {
+        if (adjMatrix[i][j] === possiblyWrong) {
+          if (!doesEdgeSplitGraph(i, j)) {
+            tempResult = false
+          }
+        }
+      }
+    }
+    if (!tempResult) {
+      ignoreList.splice(ignoreList.indexOf(possiblyWrong), 1)
+    }
+  }
 }
 </script>
 

@@ -6,7 +6,8 @@ let edgesWeight = Array.from({ length: 17 }, () => Math.floor(Math.random() * 20
 
 const debug = false
 if (debug) {
-  edgesWeight = [20, 19, 5, 14, 5, 5, 16, 6, 14, 13, 10, 20, 19, 1, 1, 1, 1]
+  edgesWeight = [20, 18, 16, 20, 12, 1, 1, 8, 16, 11, 2, 20, 6, 8, 2, 17, 11]
+  // edgesWeight = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 }
 
 interface Edge extends vNG.Edge {
