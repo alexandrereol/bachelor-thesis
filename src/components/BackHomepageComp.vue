@@ -1,10 +1,7 @@
 <template>
   <router-link to="/">
     <button class="back_to_homepage">
-      <img
-        src="../assets/icons/home.png"
-        style="height: 40px; width: 40px;"
-      >
+      <img src="../assets/icons/home.png" style="height: 40px; width: 40px;">
       <br>
       Startseite
     </button>

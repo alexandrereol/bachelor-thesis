@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="header">
-      <h1>{{title}}</h1>
+      <h1>{{ title }}</h1>
       <router-link to="/">
         <button class="back_to_homepage">
-          <img src="../assets/icons/home.png" style="height: 40px; width: 50px"/>
-          <br/>
+          <img src="../assets/icons/home.png" style="height: 40px; width: 50px" />
+          <br />
           Startseite
         </button>
       </router-link>
-      <p class="aufgabenstellung">{{taskdescription}} <span style="font-size: 25px; font-weight: bold"></span></p>
-  </div>
+      <p class="aufgabenstellung">{{ taskdescription }} <span style="font-size: 25px; font-weight: bold"></span></p>
+    </div>
   </div>
 </template>
 

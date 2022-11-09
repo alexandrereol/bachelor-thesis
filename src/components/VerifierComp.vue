@@ -1,12 +1,8 @@
 <template>
-  <div
-    id="tutorial-wrapper"
-    class="modal-mask"
-    @mousedown.stop="
-      showSolution = false;
-      $emit('close-verifier');
-    "
-  >
+  <div id="tutorial-wrapper" class="modal-mask" @mousedown.stop="
+    showSolution = false;
+  $emit('close-verifier');
+  ">
     <div class="modal-wrapper">
       <div class="modal-container" @mousedown.stop>
         <div class="modal-header">
@@ -18,18 +14,9 @@
         </div>
         <div class="flex-item flex-center flex-space-between flex-col">
           <div class="flex-item flex-center flex-space-between flex-row">
-            <img
-              class="corr_img"
-              v-if="correctSolution"
-              :src="require('@/assets/icons/beaver-correct.png')"
-              draggable="false"
-            />
-            <img
-              class="corr_img"
-              v-else
-              :src="require('@/assets/icons/beaver-incorrect.png')"
-              draggable="false"
-            />
+            <img class="corr_img" v-if="correctSolution" :src="require('@/assets/icons/beaver-correct.png')"
+              draggable="false" />
+            <img class="corr_img" v-else :src="require('@/assets/icons/beaver-incorrect.png')" draggable="false" />
           </div>
           <hr />
           <div v-if="!correctSolution">
@@ -46,9 +33,6 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'VerifierComp',
   props: ['correctSolution', 'tip'],
-  created: function () {
-    console.log('Verifier activated')
-  },
   methods: {
     reloadPage () {
       location.reload()
@@ -57,7 +41,6 @@ export default defineComponent({
 })
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 hr {
   width: 50%;
@@ -130,14 +113,6 @@ hr {
 .modal-default-button {
   float: right;
 }
-/*
-  * The following styles are auto-applied to elements with
-  * transition="modal" when their visibility is toggled
-  * by Vue.js.
-  *
-  * You can easily play with the modal transition by editing
-  * these styles.
-  */
 .modal-enter {
   opacity: 0;
 }

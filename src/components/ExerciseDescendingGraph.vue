@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { reactive, ref } from 'vue'
 import { Nodes, Edges } from 'v-network-graph'
-import data from './AlgDataGen'
+import data from './DataGeneratorType1'
 import VerifierComp from './VerifierComp.vue'
 
 const nodes: Nodes = reactive({ ...data.nodes })
@@ -64,10 +64,8 @@ for (var i = 0; i < adjMatrix.length; i++) {
     if (adjMatrix[i][j] === 21) {
       const index = edgeWeights.indexOf(21)
       edgeWeights.splice(index, 1)
-      //
       adjMatrix[i][j] = 0
       adjMatrix[j][i] = 0
-      //
       const toDelete = revAdjMatrix[i][j]
       delete edges[toDelete]
     }
@@ -90,6 +88,7 @@ function doesEdgeSplitGraph (source: number, target: number) {
   return !(allReachable(tempMatrix, 0))
 }
 
+// USER INTERACTION
 function removeEdge () {
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
@@ -110,9 +109,6 @@ function removeEdge () {
     }
 
     if (doesEdgeSplitGraph(sourceNode, targetNode)) {
-      if (debugMode) {
-        console.log('[DEBUG] edge would split graph')
-      }
       console.log('WRONG; Graph would be divided:' + visited)
       infoBox.value = true
       infoBoxCorrect.value = false
@@ -121,29 +117,20 @@ function removeEdge () {
     }
 
     if (edgeWeight !== maxWeightGraph) {
-      if (debugMode) {
-        console.log('[DEBUG] edge weight is not the maximum edge in graph')
-      }
       console.log('WRONG; Edge is not the maximum edge in graph s.t. graph stays connected')
       infoBox.value = true
       infoBoxCorrect.value = false
       infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante nicht die größte Kante im Graphen ist.'
       return
     }
-
-    // Remove 2x edges from adjacency matrix
     adjMatrix[sourceNode][targetNode] = 0
     adjMatrix[targetNode][sourceNode] = 0
 
-    // If weight is maximum of graph
     if (edgeWeight === maxWeightGraph) {
-      // Remove from edgeWeights
       const index = edgeWeights.indexOf(edgeWeight)
       edgeWeights.splice(index, 1)
-      // Remove from n-network-graph
       delete edges[edgeId]
 
-      // Is exercise finished?
       if (edgeWeights.length === 9) {
         console.log('CORRECT; the m.s.t. has the following edges' + edgeWeights)
         infoBox.value = true
@@ -153,15 +140,13 @@ function removeEdge () {
     }
   }
 
-  // Calculate next ingnore list
+  // IGNORE LIST CALCULATION
   for (let i = 0; i < adjMatrix.length; i++) {
     for (let j = 0; j < adjMatrix.length; j++) {
       if (adjMatrix[i][j] > 0) {
-        // If checking edg with weight W, check if W is in ignoreList and remove it
         if (ignoreList.includes(adjMatrix[i][j])) {
           ignoreList.splice(ignoreList.indexOf(adjMatrix[i][j]), 1)
         }
-        // Check if weight W' of edge (i, j) splits up graph and add it to ignoreList
         if (doesEdgeSplitGraph(i, j) && adjMatrix[i][j] === getArrayMax(edgeWeights)) {
           ignoreList.push(adjMatrix[i][j])
         }
@@ -172,30 +157,16 @@ function removeEdge () {
 </script>
 
 <template>
-    <v-network-graph
-        class = "graph"
-        :nodes="nodes"
-        :edges="edges"
-        :layouts="data.layouts"
-        :configs="data.configs"
-        v-model:selected-edges="selectedEdges"
-    >
-        <template #edge-label="{ edge, ...slotProps }">
-            <v-edge-label
-            :text="edge.label"
-            text-align="center"
-            vertical-align="center"
-            v-bind="slotProps" />
-        </template>
-    </v-network-graph>
+  <v-network-graph class="graph" :nodes="nodes" :edges="edges" :layouts="data.layouts" :configs="data.configs"
+    v-model:selected-edges="selectedEdges">
+    <template #edge-label="{ edge, ...slotProps }">
+      <v-edge-label :text="edge.label" text-align="center" vertical-align="center" v-bind="slotProps" />
+    </template>
+  </v-network-graph>
 
-    <VerifierComp
-      v-if="infoBox"
-      :correctSolution="infoBoxCorrect"
-      :tip="infoBoxMessage"
-      @close-verifier="infoBox = false"
-    />
-    <button @click="removeEdge" class="next_task">
+  <VerifierComp v-if="infoBox" :correctSolution="infoBoxCorrect" :tip="infoBoxMessage"
+    @close-verifier="infoBox = false" />
+  <button @click="removeEdge" class="next_task">
     <img src="../assets/icons/skip.png" class="icon" />
     <br />
     Kante entfernen

@@ -2,9 +2,10 @@
   <div>
     <div class="header">
       <h1>Lernumgebung zu minimalen Spannbäumen in der Graphentheorie</h1>
-      <p class="aufgabenstellung">Auf dieser Platform wirst du drei verschiedene Algorithmen lernen können die minimale Spannbäum berechnen.</p>
-      <HomeGraph class="homegraph"/>
-      </div>
+      <p class="aufgabenstellung">Auf dieser Platform wirst du drei verschiedene Algorithmen lernen können die minimale
+        Spannbäum berechnen.</p>
+      <HomeGraph class="homegraph" />
+    </div>
     <h2>Wähle eine der drei Aufgaben um zu starten:</h2>
     <div class="taskrow">
       <router-link to="ex/descending">

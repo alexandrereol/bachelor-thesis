@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { reactive, ref } from 'vue'
 import { Nodes, Edges } from 'v-network-graph'
-import data from './AlgDataGenBeta'
+import data from './DataGeneratorType2'
 import VerifierComp from './VerifierComp.vue'
 
 const nodes: Nodes = reactive({ ...data.nodes })
@@ -79,7 +79,6 @@ if (!allReachable(adjMatrix, 0)) {
 }
 
 // CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
-
 function getArrayMin () {
   const grayWeights = []
   for (let i = 0; i < adjMatrix.length; i++) {
@@ -89,15 +88,12 @@ function getArrayMin () {
       }
     }
   }
-
-  console.log(grayWeights.filter(val => val !== 0))
   return Math.min.apply(null, grayWeights.filter(val => val !== 0))
 }
 
 // CONDITION 2: CHECK IF EDGE FORMS CIRCLE
-
 function colorEdge () {
-  // deselect edge and select nodes such that they'll update
+  // deselect edge and select nodes such that they'll update UI
   selectedNodes.value = ['node0', 'node1', 'node2', 'node3', 'node4', 'node5', 'node6', 'node7', 'node8', 'node9']
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
@@ -132,8 +128,6 @@ function colorEdge () {
       return
     }
     // CONDITION 2: CHECK IF EDGE FORMS CIRCLE IN BLUE
-
-    // Color the edge selected
     customColor[sourceNode][sourceNode] = true
     customColor[targetNode][targetNode] = true
     customColor[sourceNode][targetNode] = true
@@ -141,7 +135,6 @@ function colorEdge () {
 
     reactAdjMatrix[sourceNode][targetNode] = 1
     reactAdjMatrix[targetNode][sourceNode] = 1
-    // CHECK IF FINISHED
   }
   for (const edgeId in edges) {
     const currentEdge = edges[edgeId]
@@ -169,31 +162,16 @@ function colorEdge () {
 </script>
 
 <template>
-    <v-network-graph
-        class = "graph"
-        :nodes="nodes"
-        :edges="edges"
-        :layouts="data.layouts"
-        :configs="data.configs"
-        v-model:selected-edges="selectedEdges"
-        v-model:selected-nodes="selectedNodes"
-    >
-        <template #edge-label="{ edge, ...slotProps }">
-            <v-edge-label
-            :text="edge.label"
-            text-align="center"
-            vertical-align="center"
-            v-bind="slotProps" />
-        </template>
-    </v-network-graph>
+  <v-network-graph class="graph" :nodes="nodes" :edges="edges" :layouts="data.layouts" :configs="data.configs"
+    v-model:selected-edges="selectedEdges" v-model:selected-nodes="selectedNodes">
+    <template #edge-label="{ edge, ...slotProps }">
+      <v-edge-label :text="edge.label" text-align="center" vertical-align="center" v-bind="slotProps" />
+    </template>
+  </v-network-graph>
 
-    <VerifierComp
-      v-if="infoBox"
-      :correctSolution="infoBoxCorrect"
-      :tip="infoBoxMessage"
-      @close-verifier="infoBox = false"
-    />
-    <button @click="colorEdge" class="next_task">
+  <VerifierComp v-if="infoBox" :correctSolution="infoBoxCorrect" :tip="infoBoxMessage"
+    @close-verifier="infoBox = false" />
+  <button @click="colorEdge" class="next_task">
     <img src="../assets/icons/skip.png" class="icon" />
     <br />
     Kante färben

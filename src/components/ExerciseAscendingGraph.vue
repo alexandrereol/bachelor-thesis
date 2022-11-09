@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { reactive, ref } from 'vue'
 import { Nodes, Edges } from 'v-network-graph'
-import data from './AlgDataGen'
+import data from './DataGeneratorType1'
 import VerifierComp from './VerifierComp.vue'
 
 const nodes: Nodes = reactive({ ...data.nodes })
@@ -61,10 +61,8 @@ for (var i = 0; i < adjMatrix.length; i++) {
     if (adjMatrix[i][j] >= 21) {
       const index = edgeWeights.indexOf(adjMatrix[i][j])
       edgeWeights.splice(index, 1)
-      //
       adjMatrix[i][j] = 0
       adjMatrix[j][i] = 0
-      //
       const toDelete = revAdjMatrix[i][j]
       delete edges[toDelete]
     }
@@ -90,12 +88,10 @@ const mstAdjMatrix = Array.from({ length: 10 }, () => Array.from({ length: 10 },
 function doesAddingEdgeFormCircle (matrix: number[][], source: number, target: number) {
   flag = false
 
-  // make copy of adj matrix and add edge
   var tempMatrix = JSON.parse(JSON.stringify(matrix))
   tempMatrix[source][target] = 1
   tempMatrix[target][source] = 1
 
-  // before checking for cycles we remove the upper triangle of the matrix
   for (var i = 0; i < matrix.length; i++) {
     for (var j = i; j < matrix.length; j++) {
       tempMatrix[i][j] = 0
@@ -131,6 +127,7 @@ function dfs (matrix: number[][], source: number) {
   }
 }
 
+// USER INTERACTION
 function colorEdge () {
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
@@ -166,7 +163,6 @@ function colorEdge () {
       return
     }
 
-    // CONDITION 2: CHECK IF EDGE FORMS CIRCLE
     const cond2 = doesAddingEdgeFormCircle(mstAdjMatrix, sourceNode, targetNode)
     if (debugMode) {
       console.log('')
@@ -179,22 +175,18 @@ function colorEdge () {
       infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante einen Kreis im minimalen Spannbaum bilden würde.'
       return
     }
-    // Color the edge selected
     customColor[sourceNode][targetNode] = true
     customColor[targetNode][sourceNode] = true
 
-    // Remove edge from adj matrix and add to mst adj matrix
     adjMatrix[sourceNode][targetNode] = 0
     adjMatrix[targetNode][sourceNode] = 0
     mstAdjMatrix[sourceNode][targetNode] = 1
     mstAdjMatrix[targetNode][sourceNode] = 1
 
-    // Remove from edgeWeights
     const index = edgeWeights.indexOf(edgeWeight)
     edgeWeights.splice(index, 1)
 
     visited = Array.from({ length: 10 }, () => false)
-    // Is exercise finished?
     if (allReachable(mstAdjMatrix, 0)) {
       console.log('CORRECT; the m.s.t. has been found')
       infoBox.value = true
@@ -203,7 +195,6 @@ function colorEdge () {
     }
 
     // IGNORE LIST CALCULATION
-
     const flagToRemoveWeight = Array.from({ length: 20 }, () => 0)
     // 0: not done, 1: keep, 2: remove
     for (let i = 0; i < adjMatrix.length; i++) {
@@ -234,30 +225,16 @@ function colorEdge () {
 </script>
 
 <template>
-    <v-network-graph
-        class = "graph"
-        :nodes="nodes"
-        :edges="edges"
-        :layouts="data.layouts"
-        :configs="data.configs"
-        v-model:selected-edges="selectedEdges"
-    >
-        <template #edge-label="{ edge, ...slotProps }">
-            <v-edge-label
-            :text="edge.label"
-            text-align="center"
-            vertical-align="center"
-            v-bind="slotProps" />
-        </template>
-    </v-network-graph>
+  <v-network-graph class="graph" :nodes="nodes" :edges="edges" :layouts="data.layouts" :configs="data.configs"
+    v-model:selected-edges="selectedEdges">
+    <template #edge-label="{ edge, ...slotProps }">
+      <v-edge-label :text="edge.label" text-align="center" vertical-align="center" v-bind="slotProps" />
+    </template>
+  </v-network-graph>
 
-    <VerifierComp
-      v-if="infoBox"
-      :correctSolution="infoBoxCorrect"
-      :tip="infoBoxMessage"
-      @close-verifier="infoBox = false"
-    />
-    <button @click="colorEdge" class="next_task">
+  <VerifierComp v-if="infoBox" :correctSolution="infoBoxCorrect" :tip="infoBoxMessage"
+    @close-verifier="infoBox = false" />
+  <button @click="colorEdge" class="next_task">
     <img src="../assets/icons/skip.png" class="icon" />
     <br />
     Kante färben
