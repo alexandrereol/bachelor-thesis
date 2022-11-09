@@ -2,7 +2,7 @@ import { Layouts } from 'v-network-graph'
 import * as vNG from 'v-network-graph'
 import { reactive } from 'vue'
 
-let edgesWeight = Array.from({ length: 17 }, () => Math.floor(Math.random() * 21) + 1)
+let edgesWeight = Array.from({ length: 17 }, () => Math.floor(Math.random() * 20.9) + 1)
 
 const debug = false
 if (debug) {

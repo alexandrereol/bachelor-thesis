@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComp :title="'Minimaler Spannbaum berechnen 1 (BETA)'"
-      :taskdescription="'Deine Aufgabe ist es, die teuerste Kanten aus dem Graphen zu entfernen. Dies kann mit dem Knopf unter dem Graphen gemacht werden. Achte, dass der Graph verbunden bleibt und keine Kreise enthält.'" />
+      :taskdescription="'Deine Aufgabe ist es, die teuerste Kante welche sich in einem Kreis befindet, aus dem Graphen zu entfernen. Dies kann mit dem Knopf unter dem Graphen gemacht werden.'" />
     <ExerciseDescendingGraph />
     <RemoveEdgeComp />
     <VerifierComp v-if="this.submitted" :correctSolution="this.result" :tip="''"
