@@ -9,6 +9,7 @@ const edges: Edges = reactive({ ...data.edges })
 
 const selectedEdges = ref<string[]>([])
 const edgeWeights = data.edgesWeight
+const copyEdgeWeights = [...edgeWeights]
 const ignoreList: number[] = []
 
 const debugMode = true
@@ -49,6 +50,8 @@ const revAdjMatrix: string[][] = [
   ['', '', 'edge17', '', '', '', '', 'edge16', '', '']
 ]
 
+let visited = Array.from({ length: 10 }, () => false)
+
 function allReachable (matrix: number[][], startNode: number) {
   for (let i = 0; i < matrix.length; i++) {
     if (matrix[startNode][i] > 0 && visited[i] === false) {
@@ -62,7 +65,7 @@ function allReachable (matrix: number[][], startNode: number) {
 for (var i = 0; i < adjMatrix.length; i++) {
   for (var j = i; j < adjMatrix.length; j++) {
     if (adjMatrix[i][j] >= 21) {
-      const index = edgeWeights.indexOf(21)
+      const index = edgeWeights.indexOf(adjMatrix[i][j])
       edgeWeights.splice(index, 1)
       adjMatrix[i][j] = 0
       adjMatrix[j][i] = 0
@@ -71,12 +74,11 @@ for (var i = 0; i < adjMatrix.length; i++) {
     }
   }
 }
+
 if (!allReachable(adjMatrix, 0)) {
   console.log('not all reachable')
   window.location.reload()
 }
-
-let visited = Array.from({ length: 10 }, () => false)
 
 function doesEdgeSplitGraph (source: number, target: number) {
   if (adjMatrix[source][target] < 0) {
@@ -195,6 +197,7 @@ function removeEdge () {
     <br />
     Kante entfernen
   </button>
+  <p>{{ copyEdgeWeights }}</p>
 </template>
 
 <style scoped>

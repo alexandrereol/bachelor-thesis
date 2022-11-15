@@ -81,7 +81,7 @@ const configs = reactive(
     node: {
       draggable: false,
       label: {
-        visible: false
+        visible: true
       }
     },
     edge: {
