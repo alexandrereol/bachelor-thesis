@@ -71,8 +71,9 @@ for (var i = 0; i < adjMatrix.length; i++) {
     }
   }
 }
-if (!allReachable) {
-  location.reload()
+if (!allReachable(adjMatrix, 0)) {
+  console.log('not all reachable')
+  window.location.reload()
 }
 
 let visited = Array.from({ length: 10 }, () => false)

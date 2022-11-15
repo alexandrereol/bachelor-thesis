@@ -74,8 +74,8 @@ for (var i = 0; i < adjMatrix.length; i++) {
 }
 
 if (!allReachable(adjMatrix, 0)) {
-  console.log('not all reachable -> reloading')
-  location.reload()
+  console.log('not all reachable')
+  window.location.reload()
 }
 
 // CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
