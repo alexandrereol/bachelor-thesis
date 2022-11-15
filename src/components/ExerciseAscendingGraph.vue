@@ -127,8 +127,40 @@ function dfs (matrix: number[][], source: number) {
   }
 }
 
+function calcIgnoreList () {
+  for (let loop = 0; loop < adjMatrix.length; loop++) {
+    // IGNORE LIST CALCULATION
+    const flagToRemoveWeight = Array.from({ length: 20 }, () => 0)
+    // 0: not done, 1: keep, 2: remove
+    for (let i = 0; i < adjMatrix.length; i++) {
+      for (let j = 0; j < adjMatrix.length; j++) {
+        const weight = adjMatrix[i][j]
+        if (weight > 0) {
+          const flag = flagToRemoveWeight[weight - 1]
+          if (flag !== 1) {
+            const SCond1 = adjMatrix[i][j] === getArrayMin(edgeWeights)
+            const SCond2 = doesAddingEdgeFormCircle(mstAdjMatrix, i, j)
+            if (SCond1 && SCond2) {
+              flagToRemoveWeight[weight - 1] = 2
+            } else {
+              flagToRemoveWeight[weight - 1] = 1
+            }
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < flagToRemoveWeight.length; i++) {
+      if (flagToRemoveWeight[i] === 2) {
+        ignoreList.push(i + 1)
+      }
+    }
+  }
+}
+
 // USER INTERACTION
 function colorEdge () {
+  calcIgnoreList()
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
     infoBoxCorrect.value = false
@@ -192,33 +224,6 @@ function colorEdge () {
       infoBox.value = true
       infoBoxCorrect.value = true
       infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
-    }
-
-    // IGNORE LIST CALCULATION
-    const flagToRemoveWeight = Array.from({ length: 20 }, () => 0)
-    // 0: not done, 1: keep, 2: remove
-    for (let i = 0; i < adjMatrix.length; i++) {
-      for (let j = 0; j < adjMatrix.length; j++) {
-        const weight = adjMatrix[i][j]
-        if (weight > 0) {
-          const flag = flagToRemoveWeight[weight - 1]
-          if (flag !== 1) {
-            const SCond1 = adjMatrix[i][j] === getArrayMin(edgeWeights)
-            const SCond2 = doesAddingEdgeFormCircle(mstAdjMatrix, i, j)
-            if (SCond1 && SCond2) {
-              flagToRemoveWeight[weight - 1] = 2
-            } else {
-              flagToRemoveWeight[weight - 1] = 1
-            }
-          }
-        }
-      }
-    }
-
-    for (let i = 0; i < flagToRemoveWeight.length; i++) {
-      if (flagToRemoveWeight[i] === 2) {
-        ignoreList.push(i + 1)
-      }
     }
   }
 }

@@ -89,6 +89,42 @@ function doesEdgeSplitGraph (source: number, target: number) {
   return !(allReachable(tempMatrix, 0))
 }
 
+function calcIgnoreList () {
+  for (let loop = 0; loop < adjMatrix.length; loop++) {
+    // IGNORE LIST CALCULATION
+    for (let i = 0; i < adjMatrix.length; i++) {
+      for (let j = 0; j < adjMatrix.length; j++) {
+        if (adjMatrix[i][j] > 0) {
+          if (ignoreList.includes(adjMatrix[i][j])) {
+            ignoreList.splice(ignoreList.indexOf(adjMatrix[i][j]), 1)
+          }
+          if (doesEdgeSplitGraph(i, j) && adjMatrix[i][j] === getArrayMax(edgeWeights)) {
+            ignoreList.push(adjMatrix[i][j])
+          }
+        }
+      }
+    }
+
+    const possiblyWrong = ignoreList[ignoreList.length - 1]
+    const temp = edgeWeights.filter(function (value) { return value === possiblyWrong }).length
+    if (temp > 1) {
+      let tempResult = true
+      for (let i = 0; i < adjMatrix.length; i++) {
+        for (let j = 0; j < adjMatrix.length; j++) {
+          if (adjMatrix[i][j] === possiblyWrong) {
+            if (!doesEdgeSplitGraph(i, j)) {
+              tempResult = false
+            }
+          }
+        }
+      }
+      if (!tempResult) {
+        ignoreList.splice(ignoreList.indexOf(possiblyWrong), 1)
+      }
+    }
+  }
+}
+
 // USER INTERACTION
 function removeEdge () {
   if (selectedEdges.value.length === 0) {
@@ -97,6 +133,7 @@ function removeEdge () {
     infoBoxMessage.value = 'Es scheint als hättest du keine Kante ausgewählt. Überprüfe deine Auswahl.'
     return
   }
+  calcIgnoreList()
   for (const edgeId of selectedEdges.value) {
     const sourceNode: number = +(edges[edgeId].source.replace('node', ''))
     const targetNode: number = +(edges[edgeId].target.replace('node', ''))
@@ -138,38 +175,6 @@ function removeEdge () {
         infoBoxCorrect.value = true
         infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
       }
-    }
-  }
-
-  // IGNORE LIST CALCULATION
-  for (let i = 0; i < adjMatrix.length; i++) {
-    for (let j = 0; j < adjMatrix.length; j++) {
-      if (adjMatrix[i][j] > 0) {
-        if (ignoreList.includes(adjMatrix[i][j])) {
-          ignoreList.splice(ignoreList.indexOf(adjMatrix[i][j]), 1)
-        }
-        if (doesEdgeSplitGraph(i, j) && adjMatrix[i][j] === getArrayMax(edgeWeights)) {
-          ignoreList.push(adjMatrix[i][j])
-        }
-      }
-    }
-  }
-
-  const possiblyWrong = ignoreList[ignoreList.length - 1]
-  const temp = edgeWeights.filter(function (value) { return value === possiblyWrong }).length
-  if (temp > 1) {
-    let tempResult = true
-    for (let i = 0; i < adjMatrix.length; i++) {
-      for (let j = 0; j < adjMatrix.length; j++) {
-        if (adjMatrix[i][j] === possiblyWrong) {
-          if (!doesEdgeSplitGraph(i, j)) {
-            tempResult = false
-          }
-        }
-      }
-    }
-    if (!tempResult) {
-      ignoreList.splice(ignoreList.indexOf(possiblyWrong), 1)
     }
   }
 }
