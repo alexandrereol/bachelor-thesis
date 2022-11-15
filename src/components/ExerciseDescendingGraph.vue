@@ -61,7 +61,7 @@ function allReachable (matrix: number[][], startNode: number) {
 
 for (var i = 0; i < adjMatrix.length; i++) {
   for (var j = i; j < adjMatrix.length; j++) {
-    if (adjMatrix[i][j] === 21) {
+    if (adjMatrix[i][j] >= 21) {
       const index = edgeWeights.indexOf(21)
       edgeWeights.splice(index, 1)
       adjMatrix[i][j] = 0
