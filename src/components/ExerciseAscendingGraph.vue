@@ -11,6 +11,7 @@ const customColor: boolean[][] = reactive({ ...data.customColor })
 
 const selectedEdges = ref<string[]>([])
 const edgeWeights = data.edgesWeight
+const copyEdgeWeights = [...edgeWeights]
 
 const debugMode = true
 
@@ -244,6 +245,7 @@ function colorEdge () {
     <br />
     Kante färben
   </button>
+  <p>{{ copyEdgeWeights }}</p>
 </template>
 
 <style scoped>
