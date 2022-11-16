@@ -10,7 +10,6 @@ const edges: Edges = reactive({ ...data.edges })
 const selectedEdges = ref<string[]>([])
 const edgeWeights = data.edgesWeight
 const copyEdgeWeights = [...edgeWeights]
-const ignoreList: number[] = []
 
 const debugMode = true
 
@@ -18,12 +17,6 @@ const infoBox = ref<boolean>(false)
 const infoBoxCorrect = ref(false)
 const infoBoxMessage = ref('nothing..?')
 
-function getArrayMax (array: number[]) {
-  const difList = edgeWeights.filter(item => ignoreList.indexOf(item) < 0)
-  return Math.max.apply(null, difList)
-}
-
-// TODO: check adjacency matrix if correct
 const adjMatrix: number[][] = [
   [0, edgeWeights[0], 0, edgeWeights[5], 0, 0, 0, 0, edgeWeights[14], 0],
   [edgeWeights[0], 0, edgeWeights[1], edgeWeights[6], edgeWeights[7], 0, 0, 0, 0, 0],
@@ -74,9 +67,7 @@ for (var i = 0; i < adjMatrix.length; i++) {
     }
   }
 }
-
 if (!allReachable(adjMatrix, 0)) {
-  console.log('not all reachable')
   window.location.reload()
 }
 
@@ -91,94 +82,75 @@ function doesEdgeSplitGraph (source: number, target: number) {
   return !(allReachable(tempMatrix, 0))
 }
 
-function calcIgnoreList () {
-  for (let loop = 0; loop < adjMatrix.length; loop++) {
-    // IGNORE LIST CALCULATION
-    for (let i = 0; i < adjMatrix.length; i++) {
-      for (let j = 0; j < adjMatrix.length; j++) {
-        if (adjMatrix[i][j] > 0) {
-          if (ignoreList.includes(adjMatrix[i][j])) {
-            ignoreList.splice(ignoreList.indexOf(adjMatrix[i][j]), 1)
-          }
-          if (doesEdgeSplitGraph(i, j) && adjMatrix[i][j] === getArrayMax(edgeWeights)) {
-            ignoreList.push(adjMatrix[i][j])
-          }
-        }
-      }
-    }
-
-    const possiblyWrong = ignoreList[ignoreList.length - 1]
-    const temp = edgeWeights.filter(function (value) { return value === possiblyWrong }).length
-    if (temp > 1) {
-      let tempResult = true
-      for (let i = 0; i < adjMatrix.length; i++) {
-        for (let j = 0; j < adjMatrix.length; j++) {
-          if (adjMatrix[i][j] === possiblyWrong) {
-            if (!doesEdgeSplitGraph(i, j)) {
-              tempResult = false
-            }
-          }
-        }
-      }
-      if (!tempResult) {
-        ignoreList.splice(ignoreList.indexOf(possiblyWrong), 1)
+function getCorrectWeight () {
+  let max = -12345
+  for (let i = 0; i < adjMatrix.length; i++) {
+    for (let j = 0; j < adjMatrix.length; j++) {
+      if (adjMatrix[i][j] > Math.max(0, max) && !doesEdgeSplitGraph(i, j)) {
+        max = adjMatrix[i][j]
       }
     }
   }
+  return max
 }
 
 // USER INTERACTION
 function removeEdge () {
+  if (debugMode) {
+    console.log('AR: getCorrectWeight:')
+    console.log('AR: ' + getCorrectWeight())
+  }
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
     infoBoxCorrect.value = false
     infoBoxMessage.value = 'Es scheint als hättest du keine Kante ausgewählt. Überprüfe deine Auswahl.'
     return
   }
-  calcIgnoreList()
-  for (const edgeId of selectedEdges.value) {
-    const sourceNode: number = +(edges[edgeId].source.replace('node', ''))
-    const targetNode: number = +(edges[edgeId].target.replace('node', ''))
-    const edgeWeight: number = +edges[edgeId].label
-    const maxWeightGraph = getArrayMax(edgeWeights)
-    if (debugMode) {
-      console.log('[DEBUG] edge weight: ' + edgeWeight)
-      console.log('[DEBUG] maximum edge in graph: ' + maxWeightGraph)
-      console.log('[DEBUG] source node: ' + sourceNode)
-      console.log('[DEBUG] target node: ' + targetNode)
-    }
-
-    if (doesEdgeSplitGraph(sourceNode, targetNode)) {
-      console.log('WRONG; Graph would be divided:' + visited)
-      infoBox.value = true
-      infoBoxCorrect.value = false
-      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante zwischen den beiden Knoten einen Teil des Graphen teilen würde.'
-      return
-    }
-
-    if (edgeWeight !== maxWeightGraph) {
-      console.log('WRONG; Edge is not the maximum edge in graph s.t. graph stays connected')
-      infoBox.value = true
-      infoBoxCorrect.value = false
-      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante nicht die größte Kante im Graphen ist.'
-      return
-    }
-    adjMatrix[sourceNode][targetNode] = 0
-    adjMatrix[targetNode][sourceNode] = 0
-
-    if (edgeWeight === maxWeightGraph) {
-      const index = edgeWeights.indexOf(edgeWeight)
-      edgeWeights.splice(index, 1)
-      delete edges[edgeId]
-
-      if (edgeWeights.length === 9) {
-        console.log('CORRECT; the m.s.t. has the following edges' + edgeWeights)
-        infoBox.value = true
-        infoBoxCorrect.value = true
-        infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
-      }
-    }
+  const edgeId = selectedEdges.value[0]
+  // deselect edge
+  selectedEdges.value = []
+  // get source, target and weight
+  const sourceNode: number = +(edges[edgeId].source.replace('node', ''))
+  const targetNode: number = +(edges[edgeId].target.replace('node', ''))
+  const edgeWeight: number = +edges[edgeId].label
+  if (debugMode) {
+    console.log('[DEBUG] edge weight: ' + edgeWeight)
+    console.log('[DEBUG] source node: ' + sourceNode)
+    console.log('[DEBUG] target node: ' + targetNode)
+    console.log('')
+    console.log('[DEBUG] getCorrectWeight(): ' + getCorrectWeight())
   }
+
+  if (edgeWeight !== getCorrectWeight()) {
+    infoBox.value = true
+    infoBoxCorrect.value = false
+    infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da es nicht die grösste hinzufügbare Kante ist. Überprüfe deine Auswahl.'
+    return
+  }
+
+  if (doesEdgeSplitGraph(sourceNode, targetNode)) {
+    infoBox.value = true
+    infoBoxCorrect.value = false
+    infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da es diese Kante den Graphen in zwei teilen würde. Überprüfe deine Auswahl.'
+    return
+  }
+
+  adjMatrix[sourceNode][targetNode] = 0
+  adjMatrix[targetNode][sourceNode] = 0
+
+  const index = edgeWeights.indexOf(edgeWeight)
+  edgeWeights.splice(index, 1)
+
+  delete edges[edgeId]
+
+  if (getCorrectWeight() === -12345) {
+    console.log('CORRECT; the m.s.t. has the following edges' + edgeWeights)
+    infoBox.value = true
+    infoBoxCorrect.value = true
+    infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
+  }
+  console.log('AR: getCorrectWeight:')
+  console.log('AR: ' + getCorrectWeight())
 }
 </script>
 
