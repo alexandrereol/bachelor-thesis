@@ -1,17 +1,18 @@
 <script setup lang='ts'>
 import { reactive, ref } from 'vue'
 import { Nodes, Edges } from 'v-network-graph'
-import data from './DataGeneratorType1'
+import data from './DataGeneratorType2'
 import VerifierComp from './VerifierComp.vue'
 
 const nodes: Nodes = reactive({ ...data.nodes })
 const edges: Edges = reactive({ ...data.edges })
 
 const customColor: boolean[][] = reactive({ ...data.customColor })
+const reactAdjMatrix: number[][] = reactive({ ...data.reactAdjMatrix })
 
 const selectedEdges = ref<string[]>([])
+const selectedNodes = ref<string[]>([])
 const edgeWeights = data.edgesWeight
-const copyEdgeWeights = [...edgeWeights]
 
 const debugMode = true
 
@@ -32,8 +33,6 @@ const adjMatrix: number[][] = [
   [0, 0, edgeWeights[16], 0, 0, 0, 0, edgeWeights[15], 0, 0]
 ]
 
-const mstAdjMatrix = Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => 0))
-
 const revAdjMatrix: string[][] = [
   ['', 'edge1', '', 'edge6', '', '', '', '', 'edge15', ''],
   ['edge1', '', 'edge2', 'edge7', 'edge8', '', '', '', '', ''],
@@ -47,7 +46,7 @@ const revAdjMatrix: string[][] = [
   ['', '', 'edge17', '', '', '', '', 'edge16', '', '']
 ]
 
-let visited = Array.from({ length: 10 }, () => false)
+const visited = Array.from({ length: 10 }, () => false)
 
 function allReachable (matrix: number[][], startNode: number) {
   for (let i = 0; i < matrix.length; i++) {
@@ -64,124 +63,107 @@ for (var i = 0; i < adjMatrix.length; i++) {
     if (adjMatrix[i][j] >= 21) {
       const index = edgeWeights.indexOf(adjMatrix[i][j])
       edgeWeights.splice(index, 1)
+      //
       adjMatrix[i][j] = 0
       adjMatrix[j][i] = 0
+      //
       const toDelete = revAdjMatrix[i][j]
       delete edges[toDelete]
     }
   }
 }
+
 if (!allReachable(adjMatrix, 0)) {
+  console.log('not all reachable')
   window.location.reload()
 }
 
-let flag = false
-function doesAddingEdgeFormCircle (matrix: number[][], source: number, target: number) {
-  flag = false
-  var tempMatrix = JSON.parse(JSON.stringify(matrix))
-  tempMatrix[source][target] = 1
-  tempMatrix[target][source] = 1
-  // check for cycles
-  for (let i = 0; i < matrix.length; i++) {
-    visited = Array.from({ length: 10 }, () => false)
-    dfs(tempMatrix, i, -1)
-  }
-  return flag
-}
-
-function dfs (matrix: number[][], source: number, parent: number) {
-  for (let i = 0; i < matrix.length; i++) {
-    if (matrix[source][i] > 0 && i !== parent) {
-      // for all neighbours of source but not its parent
-      if (visited[i]) {
-        // already seen this node --> cycle
-        flag = true
-        return
-      }
-      // mark as visited and recurse
-      visited[i] = true
-      dfs(matrix, i, source)
-    }
-  }
-}
-
-function getCorrectWeight () {
-  let min = 12345
+// CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
+function getArrayMin () {
+  const grayWeights = []
   for (let i = 0; i < adjMatrix.length; i++) {
     for (let j = 0; j < adjMatrix.length; j++) {
-      if (adjMatrix[i][j] > 0 && !doesAddingEdgeFormCircle(mstAdjMatrix, i, j) && adjMatrix[i][j] < min) {
-        min = adjMatrix[i][j]
+      if (customColor[i][i] !== customColor[j][j]) {
+        grayWeights.push(adjMatrix[i][j])
       }
     }
   }
-  return min
+  return Math.min.apply(null, grayWeights.filter(val => val !== 0))
 }
 
-// USER INTERACTION
+// CONDITION 2: CHECK IF EDGE FORMS CIRCLE
 function colorEdge () {
-  if (debugMode) {
-    console.log('AR: getCorrectWeight:')
-    console.log('AR: ' + getCorrectWeight())
-  }
+  // deselect edge and select nodes such that they'll update UI
+  selectedNodes.value = ['node0', 'node1', 'node2', 'node3', 'node4', 'node5', 'node6', 'node7', 'node8', 'node9']
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
     infoBoxCorrect.value = false
     infoBoxMessage.value = 'Es scheint als hättest du keine Kante ausgewählt. Überprüfe deine Auswahl.'
     return
   }
-  const edgeId = selectedEdges.value[0]
-  // deselect edge
-  selectedEdges.value = []
-  // get source, target and weight
-  const sourceNode: number = +(edges[edgeId].source.replace('node', ''))
-  const targetNode: number = +(edges[edgeId].target.replace('node', ''))
-  const edgeWeight: number = +edges[edgeId].label
-  if (debugMode) {
-    console.log('[DEBUG] edge weight: ' + edgeWeight)
-    console.log('[DEBUG] source node: ' + sourceNode)
-    console.log('[DEBUG] target node: ' + targetNode)
-    console.log('')
-    console.log('[DEBUG] getCorrectWeight(): ' + getCorrectWeight())
+  for (const edgeId of selectedEdges.value) {
+    // get source, target and weight
+    const sourceNode: number = +(edges[edgeId].source.replace('node', ''))
+    const targetNode: number = +(edges[edgeId].target.replace('node', ''))
+    const edgeWeight: number = +edges[edgeId].label
+
+    if (debugMode) {
+      console.log('[DEBUG] edge weight: ' + edgeWeight)
+      console.log('[DEBUG] source node: ' + sourceNode)
+      console.log('[DEBUG] target node: ' + targetNode)
+    }
+
+    // CONDITION 1: CHECK IF EDGE IS THE MINIMUM EDGE
+    const minWeightGraph = getArrayMin()
+    if (debugMode) {
+      console.log('')
+      console.log('[DEBUG] minimum edge in grey edges: ' + minWeightGraph)
+      console.log('[DEBUG] selected edge in graph: ' + edgeWeight)
+      console.log('[DEBUG] condition 1 satisfied: ' + (edgeWeight === minWeightGraph))
+    }
+    if (edgeWeight !== minWeightGraph) {
+      infoBox.value = true
+      infoBoxCorrect.value = false
+      infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da die Kante nicht die preiswerteste graue Kante ist.'
+      return
+    }
+    // CONDITION 2: CHECK IF EDGE FORMS CIRCLE IN BLUE
+    customColor[sourceNode][sourceNode] = true
+    customColor[targetNode][targetNode] = true
+    customColor[sourceNode][targetNode] = true
+    customColor[targetNode][sourceNode] = true
+
+    reactAdjMatrix[sourceNode][targetNode] = 1
+    reactAdjMatrix[targetNode][sourceNode] = 1
+  }
+  for (const edgeId in edges) {
+    const currentEdge = edges[edgeId]
+    const source: number = +(currentEdge.source.replace('node', ''))
+    const target: number = +(currentEdge.target.replace('node', ''))
+    if (customColor[source][source] && customColor[target][target] && reactAdjMatrix[source][target] !== 1) {
+      delete edges[edgeId]
+    }
   }
 
-  if (edgeWeight !== getCorrectWeight()) {
-    infoBox.value = true
-    infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da es nicht die kleinste entfernbare Kante ist. Überprüfe deine Auswahl.'
-    return
-  }
+  selectedEdges.value = ['edge1', 'edge2', 'edge3', 'edge4', 'edge5', 'edge6', 'edge7', 'edge8', 'edge9', 'edge10', 'edge11', 'edge12', 'edge13', 'edge14', 'edge15', 'edge16', 'edge17']
 
-  if (doesAddingEdgeFormCircle(mstAdjMatrix, sourceNode, targetNode)) {
-    infoBox.value = true
-    infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da es diese Kante einen Kreis im minimalen Spannbaum bilden würde. Überprüfe deine Auswahl.'
-    return
-  }
-
-  customColor[sourceNode][targetNode] = true
-  customColor[targetNode][sourceNode] = true
-  adjMatrix[sourceNode][targetNode] = 0
-  adjMatrix[targetNode][sourceNode] = 0
-  mstAdjMatrix[sourceNode][targetNode] = 1
-  mstAdjMatrix[targetNode][sourceNode] = 1
-
-  const index = edgeWeights.indexOf(edgeWeight)
-  edgeWeights.splice(index, 1)
-
-  if (getCorrectWeight() === 12345) {
-    console.log('CORRECT; the m.s.t. has been found')
+  const resultFlag = customColor[0][0] && customColor[1][1] && customColor[2][2] && customColor[3][3] && customColor[4][4] && customColor[5][5] && customColor[6][6] && customColor[7][7] && customColor[8][8] && customColor[9][9]
+  if (resultFlag) {
+    console.log('CORRECT; the m.s.t. has the following edges' + edgeWeights)
     infoBox.value = true
     infoBoxCorrect.value = true
-    infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
+    infoBoxMessage.value = 'Super, du hast den minimalen Spannbaum bestimmt!'
   }
-  console.log('AR: getCorrectWeight:')
-  console.log('AR: ' + getCorrectWeight())
+
+  setTimeout(() => {
+    selectedEdges.value = []
+  }, 0.00001)
 }
 </script>
 
 <template>
   <v-network-graph class="graph" :nodes="nodes" :edges="edges" :layouts="data.layouts" :configs="data.configs"
-    v-model:selected-edges="selectedEdges">
+    v-model:selected-edges="selectedEdges" v-model:selected-nodes="selectedNodes">
     <template #edge-label="{ edge, ...slotProps }">
       <v-edge-label :text="edge.label" text-align="center" vertical-align="center" v-bind="slotProps" />
     </template>
@@ -194,7 +176,7 @@ function colorEdge () {
     <br />
     Kante färben
   </button>
-  <p>{{ copyEdgeWeights }}</p>
+  <p> </p>
 </template>
 
 <style scoped>

@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import ExerciseDescending from '../views/ExerciseDescending.vue'
-import ExerciseAscending from '../views/ExerciseAscending.vue'
-import ExercisePartition from '../views/ExercisePartition.vue'
+import ExerciseGreedy from '../views/ExerciseGreedy.vue'
+import ExerciseKruskal from '../views/ExerciseKruskal.vue'
+import ExercisePrim from '../views/ExercisePrim.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,19 +17,19 @@ const routes: Array<RouteRecordRaw> = [
     component: AboutView
   },
   {
-    path: '/ex/descending',
-    name: 'ExerciseDescending',
-    component: ExerciseDescending
+    path: '/ex/greedy',
+    name: 'ExerciseGreedy',
+    component: ExerciseGreedy
   },
   {
-    path: '/ex/ascending',
-    name: 'ExerciseAscending',
-    component: ExerciseAscending
+    path: '/ex/kruskal',
+    name: 'ExerciseKruskal',
+    component: ExerciseKruskal
   },
   {
-    path: '/ex/partition',
-    name: 'ExercisePartition',
-    component: ExercisePartition
+    path: '/ex/prim',
+    name: 'ExercisePrim',
+    component: ExercisePrim
   }
 ]
 

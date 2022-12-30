@@ -103,7 +103,7 @@ function removeEdge () {
   if (selectedEdges.value.length === 0) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Es scheint als hättest du keine Kante ausgewählt. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Du hast keine Kante ausgewählt. Überprüfe deine Auswahl.'
     return
   }
   const edgeId = selectedEdges.value[0]
@@ -124,14 +124,14 @@ function removeEdge () {
   if (edgeWeight !== getCorrectWeight()) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da es nicht die grösste hinzufügbare Kante ist. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Dies ist nicht richtig, da es nicht die grösste entfernbare Kante ist. Überprüfe deine Auswahl.'
     return
   }
 
   if (doesEdgeSplitGraph(sourceNode, targetNode)) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Dies scheint nicht richtig zu sein, da es diese Kante den Graphen in zwei teilen würde. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Dies ist nicht richtig, da diese Kante den Graphen in zwei teilen würde. Überprüfe deine Auswahl.'
     return
   }
 
@@ -147,7 +147,7 @@ function removeEdge () {
     console.log('CORRECT; the m.s.t. has the following edges' + edgeWeights)
     infoBox.value = true
     infoBoxCorrect.value = true
-    infoBoxMessage.value = 'Das ist richtig! Du hast den minimalen Spannbaum gefunden.'
+    infoBoxMessage.value = 'Super, du hast den minimalen Spannbaum bestimmt!'
   }
   console.log('AR: getCorrectWeight:')
   console.log('AR: ' + getCorrectWeight())
@@ -169,7 +169,7 @@ function removeEdge () {
     <br />
     Kante entfernen
   </button>
-  <p>{{ copyEdgeWeights }}</p>
+  <p><!--{{ copyEdgeWeights }}--> </p>
 </template>
 
 <style scoped>

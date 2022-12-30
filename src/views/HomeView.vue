@@ -2,27 +2,26 @@
   <div>
     <div class="header">
       <h1>Lernumgebung zu minimalen Spannbäumen in der Graphentheorie</h1>
-      <p class="aufgabenstellung">Auf dieser Platform wirst du drei verschiedene Algorithmen lernen können die minimale
-        Spannbäum berechnen.</p>
+      <p class="aufgabenstellung">In dieser Lernumgebung lernst du spielerisch drei Algorithmen kennen, mit denen der minimale Spannbaum bestimmt werden kann.</p>
       <HomeGraph class="homegraph" />
     </div>
-    <h2>Wähle eine der drei Aufgaben um zu starten:</h2>
+    <h2>Wähle einen der Algorithmen:</h2>
     <div class="taskrow">
-      <router-link to="ex/descending">
+      <router-link to="ex/greedy">
         <button class="taskbtn">
-          <h1>Abwärts entfernen</h1>
+          <h1>Greedy</h1>
         </button>
       </router-link>
 
-      <router-link to="ex/ascending">
+      <router-link to="ex/kruskal">
         <button class="taskbtn">
-          <h1>Aufwärts auswählen</h1> <br>
+          <h1>Kruskal</h1> <br>
         </button>
       </router-link>
 
-      <router-link to="ex/partition">
+      <router-link to="ex/prim">
         <button class="taskbtn">
-          <h1>Farbige Partitionen</h1> <br>
+          <h1>Prim</h1> <br>
         </button>
       </router-link>
 
