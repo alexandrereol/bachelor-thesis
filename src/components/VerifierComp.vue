@@ -6,7 +6,7 @@
     <div class="modal-wrapper">
       <div class="modal-container" @mousedown.stop>
         <div class="modal-header">
-          <p class="title" v-if="correctSolution">Super, du hast den minimalen Spannbaum bestimmt!</p>
+          <p class="title" v-if="correctSolution">Super, du hast einen minimalen Spannbaum bestimmt!</p>
           <p class="title" v-else>Das ist leider nicht richtig!</p>
           <button class="exit-button" @click="$emit('close-verifier')">
             &times;

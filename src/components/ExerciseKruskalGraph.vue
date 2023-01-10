@@ -147,7 +147,7 @@ function colorEdge () {
   if (edgeWeight !== getCorrectWeight()) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Dies ist nicht richtig, da es nicht die kleinste hinzufügbare Kante ist. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Dies ist nicht richtig, da es nicht die preiswerteste hinzufügbare Kante ist. Überprüfe deine Auswahl.'
     return
   }
 

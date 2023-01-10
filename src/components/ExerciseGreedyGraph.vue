@@ -124,7 +124,7 @@ function removeEdge () {
   if (edgeWeight !== getCorrectWeight()) {
     infoBox.value = true
     infoBoxCorrect.value = false
-    infoBoxMessage.value = 'Dies ist nicht richtig, da es nicht die grösste entfernbare Kante ist. Überprüfe deine Auswahl.'
+    infoBoxMessage.value = 'Dies ist nicht richtig, da es nicht die teuerste entfernbare Kante ist. Überprüfe deine Auswahl.'
     return
   }
 
