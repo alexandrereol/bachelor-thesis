@@ -4,6 +4,12 @@ import { Nodes, Edges } from 'v-network-graph'
 import data from './DataGeneratorType2'
 import VerifierComp from './VerifierComp.vue'
 
+// this is needed to prevent vue.js caching an old exercise
+const urlParams = new URLSearchParams(window.location.search)
+if (!urlParams.has('in')) {
+  window.location.href = window.location.href + '?in'
+}
+
 const nodes: Nodes = reactive({ ...data.nodes })
 const edges: Edges = reactive({ ...data.edges })
 
