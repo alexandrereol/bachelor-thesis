@@ -69,8 +69,15 @@ const edges: Record<string, Edge> = {
   edge17: { source: 'node2', target: 'node9', label: edgesWeight[16].toString(), color: genColor(2, 9) }
 }
 
-const xScale = 1
+let xScale = 1
 const yScale = 2
+
+if (window.innerWidth <= 1112) {
+  xScale = 0.8
+}
+if (window.innerWidth <= 736) {
+  xScale = 0.3
+}
 
 const layouts: Layouts = {
   nodes: {

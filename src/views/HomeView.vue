@@ -37,6 +37,10 @@
 <script>
 import HomeGraph from '@/components/HomeGraphComp.vue'
 
+if (window.innerWidth <= 736) {
+  window.alert('Die Webplattform ist nicht für Smartphones optimiert. Benutzen Sie am besten ein iPad oder ein Computer um die Algorithmen durchzuspielen.')
+}
+
 export default {
   name: 'HomeView',
   components: { HomeGraph }
